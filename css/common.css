@@ -55,10 +55,10 @@ ul {
 
 .nav li {
     float: left;
-    width: 30%;
-    margin-top: 60px;
+    width: 25%;
+    margin-top: 0px;
     text-align: center;
-    font-size: 1.4em;
+    font-size: 1.1em;
 }
 
 .nav-tabs>li>a {
@@ -85,16 +85,6 @@ ul {
     border: 0px;
 }
 
-.nav-tabs.nav-justified>li>a {
-    border-bottom: 0px;
-}
-
-.nav-tabs.nav-justified>.active>a,
-.nav-tabs.nav-justified>.active>a:focus,
-.nav-tabs.nav-justified>.active>a:hover {
-    border: 0px;
-}
-
 
 /*.btn{
     border: 0px;
@@ -109,14 +99,8 @@ ul {
     margin-left: 80px;
 }
 
-.buy a:hover {
-    text-decoration-line: none;
-}
-
-.seat {
-    /*background-color: grey;*/
-    border-bottom: : 2px solid black;
-    width: 54px;
+.table {
+    margin-left: 25px;
 }
 
 .table>tbody>tr>td {
