@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/common.css">
+    <title>Cross-Chain Bridge Aggregator</title>
+</head>
+
+<body>
+    <!-- 顶部栏：左侧logo， 右侧connect wallet -->
+    <div id="topBar" style="height:80px ; background-color: aqua; ">
+        <div id="logoBar" style="float: left; width: 20%; height: 100%;margin-right: 60px; background-color: yellow;">
+
+        </div>
+
+        <div id="connectWallet" style="float: right; width:20%; height:50%; margin-right: 30px; margin-top: 10px; background-color: antiquewhite;">
+
+        </div>
+    </div>
+    <!-- 顶部栏 end -->
+
+    <!-- 左侧工作区域：左侧：用户选择chain & 输入金额， 右侧：显示结果区域 -->
+    <div id="workSpace" style="height: 400px; margin-top: 40px;">
+        <!-- 用户选择区域 -->
+        <div id="selectSpace" style="float: left; width: 40%; height:100%; margin-left: 5px;">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">From: </label>
+                    <div class="btn-group col-sm-2">
+                        <button type="button" class="btn btn-default dropdown-toggle selectChain" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Action <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">1</a></li>
+                        </ul>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2"> Send:</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="sendAmount">
+                        </div>
+                        </label>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!-- 用户区域end -->
+        <!-- 结果显示区域 -->
+        <div id="resultSpace" style="float: right; width:55%; height:100%; margin-left: 10px; margin-right: 5px; background-color:cadetblue">
+
+        </div>
+        <!-- 结果区域end -->
+    </div>
+    <!-- 左侧用户区域end -->
+    <!-- 底部区域 -->
+    <div id="botBar" style="height: 80px; margin-top: 40px; background-color:aqua">
+
+    </div>
+    <!-- 底部end -->
+</body>
+
+</html>
