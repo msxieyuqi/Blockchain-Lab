@@ -4,8 +4,30 @@
 }
 
 body {
-    margin: 0;
-    padding: 0;
+    font-family: 'Consolas';
+    font-size: medium;
+    font-weight: bolder;
+    color: white;
+    text-align: left;
+    background-image: linear-gradient(125deg, #1d4b69, #2c3e50, #3f8396, #94b3c8);
+    /* #94b3c8, #7cc9c9, */
+    background-size: 400%;
+    animation: bganimation 25s infinite;
+}
+
+@keyframes bganimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+{
     font-family: 'Consolas';
     font-size: medium;
     font-weight: bolder;
@@ -29,7 +51,7 @@ body {
 }
 
 a {
-    color: black;
+    color: white;
     text-decoration: none;
 }
 
@@ -73,20 +95,6 @@ ul {
 
 .nav-tabs {
     border: 0px;
-}
-
-
-/*.btn{
-    border: 0px;
-}*/
-
-.moiveItem {
-    float: left;
-    background-color: grey;
-    width: 160px;
-    height: 220px;
-    margin-top: 60px;
-    margin-left: 80px;
 }
 
 .table {

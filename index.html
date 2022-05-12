@@ -12,8 +12,8 @@
 
 <body>
     <!-- 顶部栏：左侧logo， 右侧connect wallet -->
-    <div id="topBar" style="height: 80px;">
-        <div id="logoBar" style="float: left; width: 60%; height: 100%;margin-right: 60px; margin-left: 15px;">
+    <div class="topBar" style="height: 80px;">
+        <div id="logoBar" style="float: left; width: 60%; height: 100%; margin-right: 60px; margin-left: 15px;">
             <h2><span class="glyphicon glyphicon-transfer"></span> CROSS-CHAIN BRIDGE AGGREGATOR </h2>
         </div>
 
@@ -24,12 +24,12 @@
     <!-- 顶部栏 end -->
 
     <!-- 左侧工作区域：左侧：用户选择chain & 输入金额， 右侧：显示结果区域 -->
-    <div id="workSpace" style="height: 400px; margin-top: 60px;">
+    <div id="workSpace" style="height: 420px; margin-top: 80px;">
         <!-- 用户选择区域 -->
         <div id="selectSpace" style="float: left; width: 40%; height:100%; margin-left: 10px;">
             <form class="form-horizontal">
                 <label class="col-lg-6"> Transfer from: </label>
-                <label> Send: </label>
+                <label> You Send: </label>
             </form>
             <form class="form-horizontal">
                 <button type="button" class="btn btn-default dropdown-toggle col-lg-5 selectChain" data-toggle="dropdown">Action <span class="caret"></span>
@@ -50,7 +50,7 @@
             </form> -->
             <form class="form-horizontal" style="margin-top: 80px;">
                 <label class="col-lg-6"> Transfer to: </label>
-                <label> Recevie: </label>
+                <label> You Recevie: </label>
             </form>
             <form class="form-horizontal">
                 <button type="button" class="btn btn-default dropdown-toggle col-lg-5 selectChain" data-toggle="dropdown">Action <span class="caret"></span>
@@ -68,7 +68,7 @@
             </form>
             <form>
                 <div style="margin-left: 100px; margin-top: 100px;">
-                    <button type="submit" class="btn btn-primary col-lg-8">Approval</button>
+                    <button type="submit" class="btn btn-info col-lg-8">Approval</button>
                 </div>
             </form>
         </div>
@@ -78,11 +78,11 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Index </th>
-                        <th>Gas<a href="#"><span class="glyphicon glyphicon-sort" id="sortByGas"></span></a></th>
-                        <th>Delay<a href="#"><span class="glyphicon glyphicon-sort" id="sortByDelay"></span></a></th>
-                        <th>On-Chain Transaction Number<a href="#"><span class="glyphicon glyphicon-sort" id="sortByOnChain"></span></a></th>
-                        <th>Refresh<a href="#"><span class="glyphicon glyphicon-refresh" id="refreshResult"></span></a></th>
+                        <th> <span class="glyphicon glyphicon-th-list"></span> Index</th>
+                        <th>Gas <a href="#"><span class="glyphicon glyphicon-sort" id="sortByGas"></span></a></th>
+                        <th>Delay <a href="#"><span class="glyphicon glyphicon-sort" id="sortByDelay"></span></a></th>
+                        <th>On-Chain Transaction Number <a href="#"><span class="glyphicon glyphicon-sort" id="sortByOnChain"></span></a></th>
+                        <th>Refresh <a href="#"><span class="glyphicon glyphicon-refresh" id="refreshResult"></span></a></th>
                     </tr>
                 </thead>
             </table>
@@ -91,17 +91,19 @@
     </div>
     <!-- 左侧用户区域end -->
     <!-- 底部区域 -->
-    <div id="botBar " style="height: 95px;">
-        <div style="margin-left: 40px;">
-            <h5>Team:
-                <p>Nu Li <span class="glyphicon glyphicon-envelope"></span> nu.li@stud.tu-darmstadt.de</p>
-                <p>Xiaoye Wu <span class="glyphicon glyphicon-envelope"></span> xiaoye.wu@stud.tu-darmstadt.de</p>
-                <p>Yuqi Xie <span class="glyphicon glyphicon-envelope"></span> yuqi.xie@stud.tu-darmstadt.de</p>
-            </h5>
-        </div>
-        <div>
+    <div class="botBar " style="height: 60px;">
+        <form class="form-horizontal">
+            <div class="col-sm-4">
+                <h5>Team: Nu Li <span class="glyphicon glyphicon-envelope"></span> nu.li@stud.tu-darmstadt.de</h5>
+            </div>
+            <div class="col-sm-4">
+                <h5>Xiaoye Wu <span class="glyphicon glyphicon-envelope"></span> xiaoye.wu@stud.tu-darmstadt.de</h5>
+            </div>
+            <div class="col-sm-4">
+                <h5>Yuqi Xie <span class="glyphicon glyphicon-envelope"></span> yuqi.xie@stud.tu-darmstadt.de</h5>
+            </div>
+        </form>
 
-        </div>
     </div>
     <!-- 底部end -->
 </body>
