@@ -7,35 +7,20 @@ body {
     font-family: 'Consolas';
     font-size: medium;
     font-weight: bolder;
-    color: white;
-    text-align: left;
-    background-image: linear-gradient(125deg, #1d4b69, #2c3e50, #3f8396, #94b3c8);
-    /* #94b3c8, #7cc9c9, */
-    background-size: 400%;
-    animation: bganimation 25s infinite;
+    color: black;
+    position: relative;
 }
 
-@keyframes bganimation {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
-}
-
-{
+.topBar {
     font-family: 'Consolas';
     font-size: medium;
     font-weight: bolder;
     color: white;
     text-align: left;
-    background-image: linear-gradient(125deg, #1d4b69, #2c3e50, #2980b9, #94b3c8, #abcbd9, #97dcdc);
+    background-image: linear-gradient(125deg, #1d4b69, #2c3e50, #3f8396, #94b3c8, #c4d5e0);
+    /* #94b3c8, #7cc9c9, */
     background-size: 400%;
-    animation: bganimation 15s infinite;
+    animation: bganimation 10s infinite;
 }
 
 @keyframes bganimation {
@@ -50,8 +35,45 @@ body {
     }
 }
 
-a {
-    color: white;
+.topBar {
+    box-shadow: 10px 5px 5px rgb(131, 131, 131);
+    padding: 3px 0;
+}
+
+.selectSpace {
+    border-bottom: 3px solid gr;
+    border-radius: 2%;
+    box-shadow: 10px 5px 5px rgb(131, 131, 131);
+    padding: 15px;
+}
+
+.footer {
+    margin: 0 auto;
+    margin-top: 75px;
+    text-align: center;
+}
+
+.copyRight {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.table {
+    margin: 0 auto;
+}
+
+#walletBalance {
+    /* display: block; */
+    max-height: 300px;
+    overflow-y: scroll;
+}
+
+#resultTable {
+    overflow-y: scroll;
+}
+
+*/ a {
+    /* color: white; */
     text-decoration: none;
 }
 
@@ -71,38 +93,6 @@ ul {
     margin-top: 0px;
     text-align: center;
     font-size: 1.1em;
-}
-
-.nav-tabs>li>a {
-    margin-right: 2px;
-    height: 60px;
-}
-
-.nav>li>a:focus,
-.nav>li>a:hover {
-    text-decoration: none;
-    color: #3493a9;
-    background-color: white;
-    border: 0px;
-}
-
-.nav-tabs>li.active>a,
-.nav-tabs>li.active>a:focus,
-.nav-tabs>li.active>a:hover {
-    color: #3493a9;
-    border: 0px;
-}
-
-.nav-tabs {
-    border: 0px;
-}
-
-.table {
-    margin-left: 25px;
-}
-
-.table>tbody>tr>td {
-    padding: 0px;
 }
 
 .table>tbody>tr>td,
