@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="css/common.css">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/common.css">
     <title>Cross-Chain Bridge Aggregator</title>
 </head>
 
@@ -18,7 +18,8 @@
         </div>
 
         <div style="float: right; width:20%; height:50%; margin-right: 30px; margin-top: 12px;">
-            <button type="button" class="btn btn-primary col-lg-12" id="connectWallet" data-toggle="modal" data-target="#connectWalletModal">Connect Wallet <span class="glyphicon glyphicon-credit-card"></span></button>
+            <button type="button" class="btn btn-primary col-lg-12" id="connectWallet" style="display: block;">Connect Wallet <span class="glyphicon glyphicon-credit-card"></span></button>
+            <button type="button" class="btn btn-success col-lg-12" id="connectSuccessful" style="display:none;" data-toggle="modal" data-target="#connectSuccessfulModal">Connected <span class="glyphicon glyphicon-ok"></span></button>
         </div>
     </div>
     <!-- 顶部栏 end -->
@@ -194,27 +195,32 @@
         <!-- /.modal-dialog -->
     </div>
     <!-- 连接钱包modal -->
-    <div class="modal fade " tabindex="-1 " id="connectWalletModal" role="dialog ">
+    <!-- data-toggle="modal" data-target="#connectSuccessfulModal"  -->
+    <div class="modal fade " tabindex="-1 " id="connectSuccessfulModal" role="dialog ">
         <div class="modal-dialog " role="document ">
             <div class="modal-content ">
                 <div class="modal-header ">
-                    <button type="button " class="close " data-dismiss="modal" aria-label="Close "><span aria-hidden="true ">&times;</span></button>
+                    <button type="button " class="close" data-dismiss="modal" aria-label="Close "><span aria-hidden="true ">&times;</span></button>
                     <h4 class="modal-title ">Connect Wallet</h4>
                 </div>
                 <div class="modal-body ">
+                    <form class="form-horizontal">
+                        <label>Account Address</label>
+                        <input type="input" id="accountAddress" class="form-control" readonly>
+                    </form>
                 </div>
                 <div class="modal-footer ">
                     <button type="button " class="btn btn-default " data-dismiss="modal">Close</button>
                 </div>
             </div>
-            <!-- /.modal-content -->
         </div>
-        <!-- /.modal-dialog -->
     </div>
-    <script type="text/javascript " src="js/jquery.js "></script>
-    <script type="text/javascript " src="js/jquery.min.js "></script>
-    <script type="text/javascript " src="js/bootstrap.min.js "></script>
-    <script type="text/javascript " src="js/index.js "></script>
+    <script type="text/javascript " src="/js/jquery.js "></script>
+    <script type="text/javascript " src="/js/jquery.min.js "></script>
+    <script type="text/javascript " src="/js/bootstrap.min.js "></script>
+    <script type="text/javascript " src="/node_modules/web3/dist/web3.min.js "></script>
+    <script type="text/javascript " src="/js/index.js "></script>
+    <script type="text/javascript " src="/js/connectWallet.js "></script>
 </body>
 
 </html>

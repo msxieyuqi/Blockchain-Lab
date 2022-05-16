@@ -87,6 +87,11 @@ ul {
     font-size: large;
 }
 
+#connectSuccessful {
+    font-weight: bolder;
+    font-size: large;
+}
+
 .nav li {
     float: left;
     width: 25%;
