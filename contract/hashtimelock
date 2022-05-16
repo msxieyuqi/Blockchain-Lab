@@ -1,0 +1,15 @@
+pragma 0.5.0 <= 0.6.0
+
+contract HashTimeLock {
+    
+
+    
+    uint limitTime;
+    function hashGeneration(string _secretKey) public returns(uint) {
+        return keccak256(abi.encode(_secretKey));
+    }
+
+    function limitTimeGeneration() public returns(uint){
+        return limitTime = now + 4hours ;
+    }
+}
