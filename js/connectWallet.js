@@ -1,15 +1,17 @@
 $(function() {
     detectMetaMask();
     connectWallet();
-    connectedAccount();
+    getAccountInfo();
 });
 
 // 检测MetaMask
 function detectMetaMask() {
     if (window.ethereum && window.ethereum.isMetaMask) {
-        console.log('install')
+        web3 = new Web3(web3.currentProvider);
+        console.log(web3);
     } else {
         console.log('Please install MetaMask!');
+        web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:7545"))
     }
 }
 
@@ -59,14 +61,6 @@ function connectWallet() {
     });
 }
 
-// 连接成功后查看账户地址modal
-function connectedAccount() {
-    $('#connectSuccessful').on('click', function() {
-        console.log(currentAccount);
-        $('#accountAddress').val(currentAccount);
-    });
-}
-
 // 监测Account改动 & 获取账号地址
 function handleAccountsChanged(accounts) {
     if (accounts.length === 0) {
@@ -77,4 +71,27 @@ function handleAccountsChanged(accounts) {
         console.log(accounts);
         isConnected();
     }
+}
+
+// 获取账户信息 address,balanace
+async function getAccountInfo() {
+    web3 = new Web3(web3.currentProvider);
+    //getAccounts
+    var addr = await web3.eth.getAccounts().then(function(accounts) { return accounts });
+    fromAddr = addr[0];
+    $('#connectSuccessful').on('click', function() {
+        $('#accountAddress').val(fromAddr);
+    });
+    // getBalance
+    var balance = await web3.eth.getBalance(fromAddr, function(balanaces) { return balanaces });
+    console.log(balance, typeof(balance));
+
+    // Select Token# selectTokenA 按钮
+    // 添加余额信息
+    // $('#selectTokenA').on('click', function() {
+    //     $('#walletBalance').find('tbody').append('<tr><td>' + 'ETH' + '</td><td>' +
+    //         balance + '</td><td>' + '<button type="button " id="selectTokenBtn " class="btn btn-default ">' +
+    //         'Select' + '</button></td></tr>');
+    // });
+
 }

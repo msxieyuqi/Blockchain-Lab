@@ -7,8 +7,8 @@ var mime = require('./mime').types;
 
 
 var server = http.createServer();
-server.listen(8888, function() {
-    console.log('port:8888');
+server.listen(7545, function() {
+    console.log('port:7545');
 })
 
 server.on('request', function(req, res) {
