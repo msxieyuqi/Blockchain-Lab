@@ -1,15 +1,83 @@
-pragma 0.5.0 <= 0.6.0
+pragma solidity 0.6.0;
 
-contract HashTimeLock {
+contract HashedTimeLock {
+    struct LockContract {
+        address payable sender;
+        address payable receiver;
+        uint amount;
+        bytes32 hashlock;
+        uint timelock;
+        bool withdraw;
+        bool refunded;
+       bytes32 preimage; //secret
+    }
+    
+    mapping  (bytes32 => LockContract) contracts;  //type???
+    // to check if the TimeLock is pratical,it must be  >0,otherwise outputs "timeLock time must be in the future"
+    modifier futureTimeLock(uint _time) {
+        require(_time > now, "timeLock time must be in the future");
+        _;
+    }
+    //to check if the transferred value >0, otheriwise outputs "msg.value must be >0"
+    modifier fundsSent() {
+        require(msg.value >0, "msg.value must be >0");
+        _;
+    }
+    // to check if the contractId dose exist , otherwise outputs "contractId dose not exist"
+    modifier contractExists(bytes32 _contractId){
+         require(haveContract(_contractId), "contractId dose not exist");
+         _;
+    }
+    // to check if the key given by the receiver is correct,otherwise outputs "hashlock hash dose not match"
+    modifier hashlockMatches(bytes32 _contractId, bytes32 _x) {
+        require (contracts[_contractId].hashlock == keccak256(abi.encodePacked(_x)), "hashlock hash dose not match");
+        _;
+    }
+    //to check if the contract withdrawable is
+    modifier withdrawable(bytes32 _contractId) {
+        require(contracts[_contractId].receiver == msg.sender, "withdrable:  not receiver");
+        require(contracts[_contractId].withdraw == false, "withdrawable: already withdrawn");
+        require(contracts[_contractId].refunded == false, "refundable:already refunded");
+        require(contracts[_contractId].timelock > now, "withdrawable: time is out"); //????
+        _;
+    }
+    //to check if the contract refundable is
+    modifier refundable(bytes32 _contractId) {
+        require(contracts[_contractId].sender == msg.sender, "refundable: not sender");
+        require(contracts[_contractId].refunded == false, "refundable:already refunded");
+        require(contracts[_contractId].withdraw == false, "withdrawable: already withdrawn");
+        require(contracts[_contractId].timelock < now, "withdrawable: not available"); //????
+        _;
+    }
+    //to judge :if the congtractId of the newly created LockContract already exists
+    function haveContract(bytes32 _contractId) internal view returns (bool exists) {
+        exists = (contracts[_contractId].sender != address(0));//why address(0)?
+    }
+    // create a new LockContract with contractId
+    function newContract(address payable _receiver, bytes32 _hashlock, uint _timelock, bytes32 _preimage) external payable fundsSent futureTimeLock(_timelock) returns(bytes32 contractId) {
+        bytes32 contractId = keccak256(abi.encodePacked(msg.sender, _receiver, msg.value, _hashlock, _timelock));  //changebale,_preimage??
+        if (haveContract(contractId))
+           revert();
+        contracts[contractId] = LockContract(msg.sender, _receiver, msg.value, _hashlock, _timelock, false, false, _preimage);
+
+    }
+    // receiver withdraws the money
+    function withdraw(bytes32 _contractId, bytes32 _preimage) external contractExists(_contractId) hashlockMatches(_contractId, _preimage) withdrawable(_contractId) returns(bool){
+        LockContract storage c =contracts[_contractId];
+        c.preimage = _preimage;
+        c.withdraw = true;
+        c.receiver.transfer(c.amount);
+        return true;
+    }
+    // sender refunds the money
+    function refund(bytes32 _contractId)  external contractExists(_contractId) refundable(_contractId) returns (bool) {
+        LockContract storage c = contracts[_contractId];
+        c.refunded = true;
+        c.sender.transfer(c.amount);
+    }
     
 
     
-    uint limitTime;
-    function hashGeneration(string _secretKey) public returns(uint) {
-        return keccak256(abi.encode(_secretKey));
-    }
 
-    function limitTimeGeneration() public returns(uint){
-        return limitTime = now + 4hours ;
-    }
+
 }
