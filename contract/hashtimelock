@@ -1,15 +1,73 @@
 pragma 0.5.0 <= 0.6.0
 
-contract HashTimeLock {
+contract HashedTimeLock {
+    struct LockContract {
+        address payable sender;
+        address payable receiver;
+        uint amount;
+        bytes32 hashlock;
+        uint timelock;
+        bool withdraw;
+        bool refunded;
+        bytes preimage; //secret
+    }
     
+    mapping storage (bytes32 => LockContract) contracts;
 
-    
-    uint limitTime;
-    function hashGeneration(string _secretKey) public returns(uint) {
-        return keccak256(abi.encode(_secretKey));
+    modifier futureTimeLock(uint _time) {
+        require(_time > now, "timeLock time must be in the future");
+        _;
     }
 
-    function limitTimeGeneration() public returns(uint){
-        return limitTime = now + 4hours ;
+    modifier fundsSent() {
+        require(msg.value >0, "msg.value must be >0");
+        _;
     }
+
+    modifier contractExists(bytes32 _contractId){
+         require(haveContract(_contractId), "contractId dose not exist");
+         _;
+    }
+
+    modifier hashlockMatches(bytes32 _contractId, bytes32 _x) {
+        require (contracts[_contractId].hashlock == keccak256(abi.encodePacked(_x)), "hashlock hash dose not match");
+        _;
+    }
+
+    modifier withdrawable(bytes32 _contractId) {
+        require(contracts[_contractId].receiver == msg.sender, "withdrable:  not receiver");
+        require(contracts[_contractId].withdrawnm == false, "withdrawable: already withdrawn");
+        require(contracts[_contractId].timelock > now, "withdrawable: timelock time must be in the future"); //????
+        _;
+    }
+
+    function withdraw(bytes32 _contractId, bytes32 _preimage) external contractExists(_contractId) hashlockMatches(_contractId, _preimage) withdrawable(_contractId) returns(bool){
+        LockContract storage c =contracts[_contractID];
+        c.preimage = _preimage;
+        c.withdrawn = true;
+        c.receiver.transfer(c.amount);
+        return true;
+    }
+
+    function newContract(address payable _receiver, bytes32 _hashlock, uint _timelock, strting _preimage) external payable fundsSent futureTimeLock(_timelock) returns(bytes32, exists） {
+        bytes32 contractId = keccak256(abi.encodePacked(msg.sender, _receiver, msg.value, _hashlock, _timelock));
+        if (haveContract(contractId))
+           revert();
+        contracts[contractId] = LockContract(msg.sender, _receiver, msg.value, _hashlock, _timelock, false, false, _preimage);
+
+    }
+
+    function refund(bytes32 _contractId) {bytes32 _contractId) external contractExists(_contractId) refundable(_contractId) returns (bool) {
+        LockContract storage c = contracts[_contractId];
+        c.refunded = true;
+        c.sender.transfer(c.amount);
+    }
+
+    
+
+    function haveContract(bytes32 _contractId) internal view returns (bool exists) {
+        exists = (contracts[_contractId].sender) != address(0))；//why address(0)?
+    }
+
+
 }
