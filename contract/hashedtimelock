@@ -2,14 +2,14 @@ pragma solidity 0.6.0;
 
 contract HashedTimeLock {
     struct LockContract {
-        address payable sender;
-        address payable receiver;
+        address  payable sender;
+        address  payable receiver;
         uint amount;
         bytes32 hashlock;
         uint timelock;
         bool withdraw;
         bool refunded;
-       bytes32 preimage; //secret
+        string preimage; //secret
     }
     
     mapping  (bytes32 => LockContract) contracts;  //type???
@@ -54,15 +54,17 @@ contract HashedTimeLock {
         exists = (contracts[_contractId].sender != address(0));//why address(0)?
     }
     // create a new LockContract with contractId
-    function newContract(address payable _receiver, bytes32 _hashlock, uint _timelock, bytes32 _preimage) external payable fundsSent futureTimeLock(_timelock) returns(bytes32) {
-        bytes32 contractId = keccak256(abi.encodePacked(msg.sender, _receiver, msg.value, _hashlock, _timelock));  //changebale,_preimage??
+    function newContract(address payable _receiver, uint _timelock, string calldata _preimage) external payable fundsSent futureTimeLock(_timelock) returns(bytes32) {
+        bytes32 contractId = keccak256(abi.encodePacked(msg.sender, _receiver, msg.value, _timelock));    //changebale,_preimage??
         if (haveContract(contractId))
            revert();
-        contracts[contractId] = LockContract(msg.sender, _receiver, msg.value, _hashlock, _timelock, false, false, _preimage);
+        bytes32 hashlock = keccak256(abi.encodePacked(_preimage)); 
+        contracts[contractId] = LockContract(msg.sender, _receiver, msg.value, hashlock, _timelock, false, false, _preimage);
+        return contractId;
 
     }
     // receiver withdraws the money
-    function withdraw(bytes32 _contractId, bytes32 _preimage) external contractExists(_contractId) hashlockMatches(_contractId, _preimage) withdrawable(_contractId) returns(bool){
+    function withdraw(bytes32 _contractId, bytes32 _preimage) public contractExists(_contractId) hashlockMatches(_contractId, _preimage) withdrawable(_contractId) returns(bool){
         LockContract storage finshed = contracts[_contractId];
         //finsched.preimage = _preimage;
        finshed.withdraw = true;
