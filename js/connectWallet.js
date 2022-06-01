@@ -11,7 +11,7 @@ function detectMetaMask() {
         console.log(web3);
     } else {
         console.log('Please install MetaMask!');
-        web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:7545"))
+        // web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:7545"));
     }
 }
 
