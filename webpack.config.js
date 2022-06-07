@@ -1,6 +1,10 @@
 const path = require("path");
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const webpack = require('webpack')
+const isProd = process.env.NODE_ENV === 'production'
 module.exports = {
     mode: 'development',
+    devtool: isProd ? false : 'eval-source-map',
     entry: path.join(__dirname, "./src/index.js"),
     output: {
         path: path.join(__dirname, "./dist"),
@@ -26,6 +30,15 @@ module.exports = {
             "crypto-browserify": require.resolve('crypto-browserify'),
         }
     },
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: path.resolve(__dirname, './template.html'),
+            scriptLoading: 'blocking'
+        }),
+        new webpack.DefinePlugin({
+            'process.env.NODE_DEBUG': false
+        })
+    ],
     // module: {
     //     loaders: [{
     //         test: /\.js$/,

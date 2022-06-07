@@ -1,9 +1,10 @@
+const Web3 = require('web3')
+const {currentProvider} =require('web3')
 $(function() {
     detectMetaMask();
     connectWallet();
     getAccountInfo();
 });
-
 // 检测MetaMask
 function detectMetaMask() {
     if (window.ethereum && window.ethereum.isMetaMask) {
@@ -75,7 +76,7 @@ function handleAccountsChanged(accounts) {
 
 // 获取账户信息 address,balanace
 async function getAccountInfo() {
-    web3 = new Web3(web3.currentProvider);
+    web3 = new Web3(Web3.currentProvider);
     //getAccounts
     var addr = await web3.eth.getAccounts().then(function(accounts) { return accounts });
     fromAddr = addr[0];
