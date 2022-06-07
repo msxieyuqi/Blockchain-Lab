@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/common.css">
+    <title>Cross-Chain Bridge Aggregator</title>
+</head>
+
+<body>
+    <!-- 顶部栏：左侧logo， 右侧connect wallet -->
+    <div class="topBar" style="height: 70px;">
+        <div id="logoBar" style="float: left; width: 60%; height: 100%; margin-right: 60px; margin-left: 15px;">
+            <h2><span class="glyphicon glyphicon-transfer"></span> CROSS-CHAIN BRIDGE AGGREGATOR </h2>
+        </div>
+
+        <div style="float: right; width:20%; height:50%; margin-right: 30px; margin-top: 12px;">
+            <button type="button" class="btn btn-primary col-lg-12" id="connectWallet" style="display: block;">Connect Wallet <span class="glyphicon glyphicon-credit-card"></span></button>
+            <button type="button" class="btn btn-success col-lg-12" id="connectSuccessful" style="display:none;" data-toggle="modal" data-target="#connectSuccessfulModal">Connected <span class="glyphicon glyphicon-ok"></span></button>
+        </div>
+    </div>
+    <!-- 顶部栏 end -->
+
+    <!-- 左侧工作区域：左侧：用户选择chain & 输入金额， 右侧：显示结果区域 -->
+    <div class="workSpace" style="height: 420px; margin-top: 60px;">
+        <!-- 用户选择区域 -->
+        <div class="selectSpace" style="float: left; width: 35%; height:100%; margin-left: 5px;">
+            <form class="form-horizontal" style="text-align: center;">
+                <label class="col-lg-5"> Transfer From: </label>
+                <label> Transfer To: </label>
+            </form>
+
+            <form class="form-horizontal">
+                <div class="dropdown col-sm-5">
+                    <!-- 选择链A -->
+                    <button type="button" id="selectChainABtn" style="width: 100%;" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Etherum <span class="caret"></span></button>
+                    <ul class="dropdown-menu " id="selectChainA">
+                        <li class="chainA"><a>Etherum</a></li>
+                        <li class="chainA"><a>Polygon</a></li>
+                        <li class="chainA"><a>Wanchain</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-1" style="float: left;"><span class="glyphicon glyphicon-transfer" style="font-size: 23px; color:#337ab7"></span></div>
+                <div class="dropdown col-sm-5" style="float: right;">
+                    <!-- 选择链B -->
+                    <button type="button" id="selectChainBBtn" style="width: 100%;" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Wanchain <span class="caret"></span></button>
+                    <ul class="dropdown-menu dropdown-menu-right" id="selectChainB">
+                        <li class="chainB"><a>Etherum</a></li>
+                        <li class="chainB"><a>Polygon</a></li>
+                        <li class="chainB"><a>Wanchain</a></li>
+                    </ul>
+                </div>
+            </form>
+            <form class="form-horizontal " style="margin-top: 120px;">
+                <!-- 选择Token A -->
+                <label class="col-lg-4 "> You Send: </label>
+                <div class=" input-group ">
+                    <input type="text " class="form-control " id="sendAmount ">
+                    <div class="input-group-btn ">
+                        <button type="button" id="selectTokenA" class="btn btn-default" data-toggle="modal" data-target="#selectTokenModal">
+                            Select Token</button>
+                    </div>
+                </div>
+            </form>
+            <form class="form" style="margin-top: 30px; ">
+                <!-- 收款人地址 -->
+                <label> Receiver Address: </label>
+            </form>
+            <form class="form-horizontal">
+                <div class="input-group">
+                    <input type="text " class="form-control " id="receiverAddress">
+                    <div class="input-group-btn ">
+                        <button type="button" id="selectTokenA" class="btn btn-success">
+                            Check</button>
+                    </div>
+                </div>
+            </form>
+            <!-- <form class="form-horizontal " style="margin-top: 20px; ">
+                选择Token B
+                <label class="col-lg-4 "> You Receive: </label>
+                <div class=" input-group ">
+                    <input type="text " class="form-control " id="sendAmount " disabled>
+                    <div class="input-group-btn ">
+                        <button type="button " id="selectTokenB " class="btn btn-default " data-toggle="modal " data-target="#selectTokenModal ">
+                            Select Token</button>
+                    </div>
+                </div>
+            </form> -->
+            <!-- 确认交易/转换 -->
+            <div style="width:50%;margin: 0 auto; ">
+                <button id="approval" class="btn btn-primary " style="width: 100%; margin-top: 80px; ">Approval</button>
+            </div>
+        </div>
+        <!-- 用户区域end -->
+        <!-- 结果显示区域 -->
+        <div class="resultSpace " id="resultTable " style="float: left; width:60%; height:100%; ">
+            <table class="table table-hover " style="width: 95%; ">
+                <thead>
+                    <tr>
+                        <th> <span class="glyphicon glyphicon-th-list "></span> Index</th>
+                        <th>Gas <a href="# "><span class="glyphicon glyphicon-sort " id="sortByGas "></span></a></th>
+                        <th>Delay <a href="# "><span class="glyphicon glyphicon-sort " id="sortByDelay "></span></a></th>
+                        <th>On-Chain Transaction Number <a href="# "><span class="glyphicon glyphicon-sort " id="sortByOnChain "></span></a></th>
+                        <th>Reset <a href="# "><span class="glyphicon glyphicon-refresh " id="refreshResult "></span></a></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- <tr>
+                        <td>1</td>
+                    </tr> -->
+                </tbody>
+            </table>
+        </div>
+        <!-- 结果区域end -->
+    </div>
+    <!-- 底部区域 -->
+    <div class="footer " style="height: 100px; width: 50%; ">
+        <!-- 左侧底部：成员名 -->
+        <div class="footerLeft " style="float: left; width: 35%; ">
+            <span class="glyphicon glyphicon-user "></span>
+            <ul>
+                <li>Nu Li</li>
+                <li>Xiaoye Wu</li>
+                <li>Yuqi Xie</li>
+            </ul>
+        </div>
+        <!-- 中间底部：emails -->
+        <div class="footerCenter " style="float: left; width: 45%; ">
+            <span class="glyphicon glyphicon-envelope "></span>
+            <ul>
+                <li>nu.li@stud.tu-darmstadt.de</li>
+                <li>xiaoye.wu@stud.tu-darmstadt.de</li>
+                <li>yuqi.xie@stud.tu-darmstadt.de</li>
+            </ul>
+        </div>
+        <!-- 右侧底部：源码link -->
+        <div class="footerRight " style="float: left; width: 20%; ">
+            <span class="glyphicon glyphicon-globe "></span>
+        </div>
+    </div>
+    <div class="copyRight " style="width: 30%; ">
+        <p>Copyright@2022 by group members</p>
+    </div>
+    <!-- 底部end -->
+
+    <!-- 选择Token/select token模态框 -->
+    <div class="modal fade " tabindex="-1 " id="selectTokenModal" role="dialog ">
+        <div class="modal-dialog " role="document ">
+            <div class="modal-content ">
+                <div class="modal-header ">
+                    <button type="button " class="close " data-dismiss="modal" aria-label="Close"><span aria-hidden="true ">&times;</span></button>
+                    <h4 class="modal-title ">Select Tokens</h4>
+                </div>
+                <div class="modal-body ">
+                    <div id="walletBalance " class="form-group " style="margin: 0 auto; margin-top: 20px; width: 90%; ">
+                        <table class="table " style="width: 80%; ">
+                            <caption>Your Balance</caption>
+                            <thread>
+                                <tr>
+                                    <th>Token Name</th>
+                                    <th>Amount</th>
+                                    <th></th>
+                                </tr>
+                            </thread>
+                            <tbody>
+                                <tr>
+                                    <td>T1</td>
+                                    <td>10</td>
+                                    <td><button type="button " id="selectTokenBtn " class="btn btn-default ">Select</button></td>
+                                </tr>
+                                <!-- <tr>
+                                    <td>T2</td>
+                                    <td>10</td>
+                                    <td><button type="button " id="selectTokenBtn " class="btn btn-default ">Select</button></td>
+
+                                </tr>
+                                <tr>
+                                    <td>T3</td>
+                                    <td>10</td>
+                                    <td><button type="button " id="selectTokenBtn " class="btn btn-default ">Select</button></td>
+                                </tr> -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer ">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Confirm</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- 连接钱包modal -->
+    <!-- data-toggle="modal" data-target="#connectSuccessfulModal"  -->
+    <div class="modal fade " tabindex="-1 " id="connectSuccessfulModal" role="dialog ">
+        <div class="modal-dialog " role="document ">
+            <div class="modal-content ">
+                <div class="modal-header ">
+                    <button type="button " class="close" data-dismiss="modal" aria-label="Close "><span aria-hidden="true ">&times;</span></button>
+                    <h4 class="modal-title ">Connected!</h4>
+                </div>
+                <div class="modal-body ">
+                    <form class="form-horizontal">
+                        <label>Account Address</label>
+                        <input type="input" id="accountAddress" class="form-control" readonly>
+                    </form>
+                </div>
+                <div class="modal-footer ">
+                    <button type="button " class="btn btn-default " data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <script src="bundle.js "></script> -->
+    <script type="text/javascript " src="/js/jquery.js "></script>
+    <script type="text/javascript " src="/js/jquery.min.js "></script>
+    <script type="text/javascript " src="/js/bootstrap.min.js "></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script> -->
+    <!-- <script type="text/javascript " src="/src/index.js "></script> -->
+    <!-- <script type="text/javascript " src="/js/connectWallet.js "></script> -->
+    <!-- <script type="text/javascript " src="/js/callContract.js "></script> -->
+</body>
+
+</html>
