@@ -3,8 +3,7 @@
 var http = require('http');
 var fs = require('fs');
 var url = require('url');
-var mime = require('./mime').types;
-
+var mime = require('./mime.js').types;
 
 var server = http.createServer();
 server.listen(7545, function() {
