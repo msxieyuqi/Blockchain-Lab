@@ -15,6 +15,7 @@ module.exports = {
         port: 7545
     },
     resolve: {
+        extensions: ['.ts', '.js'],
         fallback: {
             "fs": false,
             "tls": false,
@@ -23,7 +24,8 @@ module.exports = {
             "zlib": false,
             "http": false,
             "https": false,
-            "stream": false,
+            "stream": require.resolve("stream-browserify"),
+            "buffer": require.resolve("buffer"),
             "crypto": false,
             "os": false,
             "constants": require.resolve("constants-browserify"),
@@ -37,7 +39,11 @@ module.exports = {
         }),
         new webpack.DefinePlugin({
             'process.env.NODE_DEBUG': false
-        })
+        }),
+        new webpack.ProvidePlugin({
+            Buffer: ['buffer', 'Buffer'],
+            process: 'process/browser',
+        }),
     ],
     // module: {
     //     loaders: [{
