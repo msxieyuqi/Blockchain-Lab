@@ -14,7 +14,7 @@ server.on('request', function(req, res) {
     var urls = url.parse(req.url, true);
     console.log(urls);
     if (urls.pathname == '/') {
-        fs.readFile('./index.html', function(err, data) {
+        fs.readFile('./template.html', function(err, data) {
             if (!err) {
                 res.end(data);
             } else {

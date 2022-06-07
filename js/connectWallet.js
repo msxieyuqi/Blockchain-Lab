@@ -1,5 +1,6 @@
 const Web3 = require('web3')
-const {currentProvider} =require('web3')
+const { currentProvider } = require('web3')
+
 $(function() {
     detectMetaMask();
     connectWallet();
