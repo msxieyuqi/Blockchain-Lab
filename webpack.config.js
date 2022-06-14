@@ -26,10 +26,10 @@ module.exports = {
             "https": false,
             "stream": require.resolve("stream-browserify"),
             "buffer": require.resolve("buffer"),
-            "crypto": false,
             "os": false,
             "constants": require.resolve("constants-browserify"),
-            "crypto-browserify": require.resolve('crypto-browserify'),
+            "crypto": require.resolve('crypto-browserify'),
+            "console": require.resolve("console-browserify")
         }
     },
     plugins: [
